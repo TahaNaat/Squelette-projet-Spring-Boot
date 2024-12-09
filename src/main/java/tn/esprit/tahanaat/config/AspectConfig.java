@@ -4,9 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Aspect
@@ -22,13 +23,14 @@ public class AspectConfig {
     void journaliser1(JoinPoint joinPoint) {
         log.info("C'est une methode d'ajout : " + joinPoint.getSignature().getName());
     }
-    @Around("execution(* tn.esprit.tahanaat.service.*.affecter*(..))")//calculer le temps d'execution
-    Object calculerTempsExecution(ProceedingJoinPoint pjp ) throws Throwable{
+    @Around("execution(* tn.esprit.tahanaat.service.*.*(..))")//calculer le temps d'execution
+    public Object calculTempsResponse(ProceedingJoinPoint pjp) throws Throwable {
         LocalDateTime debut = LocalDateTime.now();
         Object obj = pjp.proceed();
         LocalDateTime fin = LocalDateTime.now();
-        long duree = java.time.Duration.between(debut, fin).toMillis();
+        long duree = Duration.between(debut, fin).toMillis();
+
         log.info("Temps d'execution de la methode : " + pjp.getSignature().getName() + " est " + duree + " millisecondes");
         return obj;
-     }
+    }
 }
