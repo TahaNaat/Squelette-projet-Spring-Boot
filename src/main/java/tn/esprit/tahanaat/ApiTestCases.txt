@@ -1,0 +1,53 @@
+# API Test Cases
+
+## 1. Add Arbitre
+### Endpoint: POST /arbitre/add
+### Request Body:
+{
+    "nom": "Smith",
+    "prenom": "John",
+    "nationalite": "British",
+    "niveau": "NATIONAL"
+}
+
+## 2. Add Equipe
+### Endpoint: POST /equipe/add
+### Request Body:
+{
+    "nomEquipe": "Brésil",
+    "dateCreation": "1914-07-21",
+    "joueurs": [
+        {
+            "nom": "Neymar",
+            "prenom": "Jr.",
+            "poste": "ATTAQUANT",
+            "num_maillot": 10
+        },
+        {
+            "nom": "Carlos",
+            "prenom": "Henrique",
+            "poste": "MILIEU",
+            "num_maillot": 5
+        }
+    ]
+}
+
+## 3. Add Rencontre
+### Endpoint: POST /rencontre/add/{idEquipe1}/{idEquipe2}
+### Request Body:
+{
+    "dateMatch": "2024-12-20",
+    "nomStade": "Maracana",
+    "niveau": "INTERNATIONAL"
+}
+
+## 4. Assign Arbitre to Rencontre
+### Endpoint: PUT /rencontre/arbitre/{nom}/{prenom}/{idR}
+### Example:
+PUT /rencontre/arbitre/John/Smith/1
+
+## 5. Get Today's Rencontres
+### Endpoint: Scheduled Task
+### Description:
+This will log the matches scheduled for today at 08:00 AM.
+
