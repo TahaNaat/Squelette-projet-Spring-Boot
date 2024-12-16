@@ -10,6 +10,7 @@ import tn.esprit.tahanaat.repo.EquipeRepository;
 import tn.esprit.tahanaat.repo.RencontreRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -61,14 +62,25 @@ public class RencontreServiceImpl implements IRencontreService {
     }
 
     @Override
-    public void incrementerNbreBut(Long idRencontre) {
-        Rencontre rencontre = rencontreRepository.findById(idRencontre)
-                .orElseThrow(() -> new RuntimeException("Rencontre not found"));
+    public void incrementerNbreBut(Long idRencontre) {    Rencontre rencontre = rencontreRepository.findById(idRencontre)
+            .orElseThrow(() -> new RuntimeException("Rencontre not found"));
 
-        // Check if the rencontre is today
-        if (rencontre.getDateMatch().isEqual(LocalDate.now())) {
-            rencontre.setNbre_but(rencontre.getNbre_but() + 1);
-            rencontreRepository.save(rencontre);
-        }
+    // Log the current state before incrementing
+    System.out.println("Current nbre_but before increment: {}"+ rencontre.getNbre_but());
+
+    // Check if the rencontre is today
+    if (rencontre.getDateMatch().isEqual(LocalDate.now())) {
+        rencontre.setNbre_but(rencontre.getNbre_but() + 1);
+        rencontreRepository.save(rencontre);
+        System.out.println("Incremented nbre_but to: {}"+ rencontre.getNbre_but());
+    } else {
+        System.out.println("Rencontre is not scheduled for today. No increment performed.");
     }
+    }
+    @Override
+public List<Arbitre> recupererArbitresDUneEquipe(Long idEquipe) {
+    return rencontreRepository.recupererArbitresDUneEquipe(idEquipe);
+}
+    
+    
 }
