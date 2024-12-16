@@ -9,6 +9,8 @@ import tn.esprit.tahanaat.repo.ArbitreRepository;
 import tn.esprit.tahanaat.repo.EquipeRepository;
 import tn.esprit.tahanaat.repo.RencontreRepository;
 
+import java.time.LocalDate;
+
 @Service
 @AllArgsConstructor
 public class RencontreServiceImpl implements IRencontreService {
@@ -56,5 +58,17 @@ public class RencontreServiceImpl implements IRencontreService {
         // Affect arbitre to rencontre
         rencontre.setArbitre(arbitre);
         rencontreRepository.save(rencontre);
+    }
+
+    @Override
+    public void incrementerNbreBut(Long idRencontre) {
+        Rencontre rencontre = rencontreRepository.findById(idRencontre)
+                .orElseThrow(() -> new RuntimeException("Rencontre not found"));
+
+        // Check if the rencontre is today
+        if (rencontre.getDateMatch().isEqual(LocalDate.now())) {
+            rencontre.setNbre_but(rencontre.getNbre_but() + 1);
+            rencontreRepository.save(rencontre);
+        }
     }
 }

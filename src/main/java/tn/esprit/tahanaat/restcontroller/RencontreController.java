@@ -1,7 +1,12 @@
 package tn.esprit.tahanaat.restcontroller;
 
 import lombok.AllArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
+
+import tn.esprit.tahanaat.entity.Arbitre;
 import tn.esprit.tahanaat.entity.Rencontre;
 import tn.esprit.tahanaat.service.IRencontreService;
 
@@ -26,5 +31,14 @@ public class RencontreController {
             @PathVariable String prenom,
             @PathVariable Long idR) throws Exception {
         rencontreService.affecterArbitreARencontre(nom, prenom, idR);
+    }
+       @PutMapping("/increment/{idRencontre}")
+    public void incrementerNbreBut(@PathVariable Long idRencontre) {
+        rencontreService.incrementerNbreBut(idRencontre);
+    }
+
+    @GetMapping("/arbitres/equipe/{idEquipe}")
+    public List<Arbitre> recupererArbitresDUneEquipe(@PathVariable Long idEquipe) {
+        return rencontreService.recupererArbitresDUneEquipe(idEquipe);
     }
 }

@@ -51,3 +51,23 @@ PUT /rencontre/arbitre/John/Smith/1
 ### Description:
 This will log the matches scheduled for today at 08:00 AM.
 
+## 6. Incrementer nbre_but
+### Endpoint: PUT /rencontre/increment/{idRencontre}
+### Example:
+PUT /rencontre/increment/1
+### Description:
+Increments the nbre_but for the rencontre with the specified ID if the rencontre is scheduled for today.
+
+## 7. Recuperer Arbitres d'une Equipe
+### Endpoint: GET /rencontre/arbitres/equipe/{idEquipe}
+### Example:
+GET /rencontre/arbitres/equipe/1
+### Description:
+Retrieves the list of arbitres who have officiated matches involving the specified team.
+
+## 8. Incrementer nbre_but
+### Endpoint: PUT /rencontre/increment/{idRencontre}
+### Example:
+PUT /rencontre/increment/1
+### Description:
+Increments the nbre_but for the rencontre with the specified ID if the rencontre is scheduled for today.
